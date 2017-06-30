@@ -1,4 +1,6 @@
-const initialState = {};
+let initialState = {
+    searchText: ''
+};
 
 export default function (state = initialState, action) {
 

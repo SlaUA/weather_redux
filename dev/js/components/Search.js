@@ -7,17 +7,34 @@ require('../../styles/Search.styl');
 
 class Search extends React.Component {
 
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            inputTimeoutId: -1,
+            inputDelayTimer: 250
+        }
+    }
+
     componentDidMount() {
 
-        navigator.geolocation.getCurrentPosition(
-            (Position) => this.props.actions.search({
-                lat: Position.coords.latitude,
-                lon: Position.coords.longitude
-            })
-        )
+        // navigator.geolocation.getCurrentPosition(
+        //     (Position) => this.props.actors.search({
+        //         lat: Position.coords.latitude,
+        //         lon: Position.coords.longitude
+        //     })
+        // )
+    }
+
+    captureSearchInput(event) {
+        console.log(event.target.value);
+        console.log(this.props.actors);
     }
 
     render() {
+
+        let {searchText} = this.props;
 
         return (
             <div className="searchWrapper">
@@ -25,10 +42,17 @@ class Search extends React.Component {
                     <span className="sunIcon"/>
                     <span>Forecast</span>
                 </div>
-                <input type="text" className="locationSearch" placeholder="type city here"/>
+                <input type="text"
+                       className="locationSearch"
+                       placeholder="type city here"
+                       onInput={(e)=>this.captureSearchInput(e)}
+                       value={searchText}/>
             </div>
         );
     }
 }
 
-export default connect(null, (dispatch)=>({actions: bindActionCreators(searchActions, dispatch)}))(Search);
+const mapDispatchToProps = (dispatch)=>({actors: bindActionCreators(searchActions, dispatch)});
+const mapStateToProps = (state)=>({searchText: state.searchReducer.searchText});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
