@@ -67,7 +67,7 @@ module.exports = {
     plugins: development ? [
         new CopyWebpackPlugin([
             {
-                from: path.join(__dirname, '/index.html'),
+                from: path.join(__dirname, 'dev/index.html'),
                 to: '../build'
             },
             {

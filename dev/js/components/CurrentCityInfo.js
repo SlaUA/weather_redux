@@ -1,39 +1,46 @@
 import React from 'react';
 import {connect} from 'react-redux';
+require('../../styles/cityInfo.styl');
 
 class CurrentCityInfo extends React.Component {
-
-    render() {
-
-        return (
-            <div className="currentCityInfoWrapper">
-                <span className="currentDate">Monday, 6 February</span>
-                <div className="cityInfo">
-                    <div className="currentCity">London, UK</div>
-                    <section>
-                        <span className="currentTemperature">22</span>
-                        <span className="currentDegrees">&#x2103;</span>
-                    </section>
-                    <section>
-                        <span className="sunIcon"/>
-                        <span className="currentWeather">Sunny</span>
-                    </section>
-                    <section>
-                        <span className="desc">Pressure</span>
-                        <span className="currentPressure">1002</span>
-                        <span className="desc">Humidity</span>
-                        <span className="currentHumidity">10</span>
-                        <span className="desc">Wind Speed</span>
-                        <span className="currentWindSpeed">6</span>
-                        <span>m/s</span>
-                        <span className="desc">Clouds</span>
-                        <span className="currentClouds">40</span>
-                        <span>%</span>
-                    </section>
-                </div>
-            </div>
-        );
-    }
+	
+	render() {
+		
+		return (
+			<div className="currentCityInfoWrapper">
+				<span className="currentDate">Monday, 6 February</span>
+				<div className="cityInfo">
+					<div className="currentCity">London, UK</div>
+					<div>
+						<span className="currentTemperature">22&#176;</span>
+						<span className="currentDegrees">C</span>
+					</div>
+					<div className="currentTotalWeather">
+						<span className="sunIcon"/>
+						<span className="currentWeather">Sunny</span>
+					</div>
+					<div className="currentTotalIndicators">
+						<div className="indicator">
+							<span className="indicatorName">Pressure:</span>
+							<span className="indicatorValue currentPressure">1002</span>
+						</div>
+						<div className="indicator">
+							<span className="indicatorName">Humidity:</span>
+							<span className="indicatorValue currentHumidity">10</span>
+						</div>
+						<div className="indicator">
+							<span className="indicatorName">Wind Speed:</span>
+							<span className="indicatorValue currentWindSpeed">6m/s</span>
+						</div>
+						<div className="indicator">
+							<span className="indicatorName">Clouds:</span>
+							<span className="indicatorValue currentClouds">40%</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default connect()(CurrentCityInfo)
