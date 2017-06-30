@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {Route, Switch} from 'react-router';
 import {ConnectedRouter} from 'react-router-redux';
-import Home from './containers/HomeContainer';
+import Home from './containers/Home';
 import * as storeConfig from './store';
 
 render(

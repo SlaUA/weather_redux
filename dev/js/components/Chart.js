@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-require('../../styles/chart.styl');
+require('../../styles/Chart.styl');
 
 class Chart extends React.Component {
 

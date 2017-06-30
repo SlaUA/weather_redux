@@ -1,9 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
-require('../../styles/search.styl');
+import * as searchActions from '../actions/Search';
+import {bindActionCreators} from 'redux';
 
+require('../../styles/Search.styl');
 
 class Search extends React.Component {
+
+    componentDidMount() {
+
+        navigator.geolocation.getCurrentPosition(
+            (Position) => this.props.actions.search({
+                lat: Position.coords.latitude,
+                lon: Position.coords.longitude
+            })
+        )
+    }
 
     render() {
 
@@ -19,4 +31,4 @@ class Search extends React.Component {
     }
 }
 
-export default connect()(Search)
+export default connect(null, (dispatch)=>({actions: bindActionCreators(searchActions, dispatch)}))(Search);

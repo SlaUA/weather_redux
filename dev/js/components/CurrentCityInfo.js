@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-require('../../styles/cityInfo.styl');
+require('../../styles/CurrentCityInfo.styl');
 
 class CurrentCityInfo extends React.Component {
 	

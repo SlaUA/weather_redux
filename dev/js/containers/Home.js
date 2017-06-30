@@ -4,6 +4,7 @@ import Search from '../components/Search';
 import CurrentCityInfo from '../components/CurrentCityInfo';
 import Chart from '../components/Chart';
 
+
 require('../../styles/index.styl');
 
 class Home extends React.Component {
@@ -12,16 +13,9 @@ class Home extends React.Component {
 
         return (
             <div className="homeWrapper">
-
-                <header>
-                    <Search />
-                    <CurrentCityInfo />
-                </header>
-
-                <main>
-                    <Chart />
-                </main>
-
+                <Search />
+                <CurrentCityInfo />
+                <Chart />
             </div>
         )
     }
