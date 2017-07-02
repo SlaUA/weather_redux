@@ -7,7 +7,7 @@ let path = require('path'),
 
 module.exports = {
     entry: {
-        app: ['./dev/js/index.js']
+        app: ['babel-polyfill', './dev/js/index.js']
     },
     output: {
         path: path.join(__dirname, '/build'),

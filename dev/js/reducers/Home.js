@@ -1,15 +1,15 @@
 import * as searchConstants from '../constants/Search';
 
 let initialState = {
-	searchText: ''
+	searchResult: {}
 };
 
 export default function (state = initialState, action) {
 	
 	switch (action.type) {
-		case searchConstants.SEARCH_INPUT_CHANGE:
+		case searchConstants.SEARCH_DONE:
 			return Object.assign({}, state, {
-				searchText: action.payload
+				searchResult: action.payload
 			});
 			break;
 	}
