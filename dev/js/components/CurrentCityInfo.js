@@ -6,21 +6,22 @@ export default class CurrentCityInfo extends React.Component {
 	
 	render() {
 		
-		
-		if (!(this.props.searchResult.list && this.props.searchResult.list.length)) {
+		if (!this.props.currentInfo) {
 			return null;
 		}
 		
 		let today = new Date(),
 			currentDate = `${days[today.getDay()]}, ${today.getDate()} ${monthNames[today.getMonth()]}`,
-			currentCity = `${this.props.searchResult.city.name}, ${this.props.searchResult.city.country}`,
-			currentTemperature = parseInt(this.props.searchResult.list[0].temp.max),
-			currentWeather = this.props.searchResult.list[0].weather[0].main,
-			currentWeatherIcon = this.props.searchResult.list[0].weather[0].icon,
-			currentPressure = parseInt(this.props.searchResult.list[0].pressure),
-			currentHumidity = this.props.searchResult.list[0].humidity,
-			currentWindSpeed = this.props.searchResult.list[0].speed,
-			currentClouds = this.props.searchResult.list[0].clouds;
+			{
+				currentCity,
+				currentTemperature,
+				currentWeather,
+				currentWeatherIcon,
+				currentPressure,
+				currentHumidity,
+				currentWindSpeed,
+				currentClouds
+			} = this.props.currentInfo;
 		
 		if (!currentCity) {
 			return null;
