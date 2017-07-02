@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Highcharts from 'highcharts';
 import {bindActionCreators} from 'redux';
-import * as chartActions from '../actions/Chart';
+import * as chartActions from '../actions/Tab';
 require('../../styles/Chart.styl');
 
 class Chart extends React.Component {
@@ -33,7 +33,7 @@ class Chart extends React.Component {
 		};
 	}
 	
-	drawCharts(props) {
+	drawChart(props) {
 		
 		if (!props.searchResult.list) {
 			return;
@@ -50,50 +50,13 @@ class Chart extends React.Component {
 	
 	componentDidUpdate() {
 		
-		this.drawCharts(this.props);
+		this.drawChart(this.props);
 	}
 	
 	render() {
 		
-		let {tabsConfig, searchResult, activeTab} = this.props,
-			tabHeaders = [],
-			tabContents = [];
-		
-		if (!(searchResult && searchResult.list)) {
-			return null;
-		}
-		
-		for (let tab in tabsConfig) {
-			if (!tabsConfig.hasOwnProperty(tab)) {continue;}
-			tabHeaders.push(
-				<span
-					onClick={this.props.changeActiveTab.bind(this, tabsConfig[tab].name)}
-					key={tabsConfig[tab].name}
-					className={`tabHeader ${tabsConfig[tab].isActive ? 'active' : ''}`}>
-					{tabsConfig[tab].name}
-					</span>
-			);
-			
-			tabContents.push(
-				<span ref={tabsConfig[tab].name} key={tabsConfig[tab].name}
-				      className={`tabContent ${tabsConfig[tab].isActive ? 'active' : ''}`}>
-					{tabsConfig[tab].name}
-					</span>
-			);
-		}
-		
 		return (
-			<div className="chartWrapper">
-				<div className="forecastHeader">Forecast 16 days</div>
-				<div className="chartTabs">
-					<div className="tabHeaders">
-						{tabHeaders}
-					</div>
-					<div className="tabsContent">
-						{tabContents}
-					</div>
-				</div>
-			</div>
+			null
 		);
 	}
 }
