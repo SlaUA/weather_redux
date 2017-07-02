@@ -1,4 +1,5 @@
 import * as searchConstants from '../constants/Search';
+import {monthNames} from '../constants/app';
 
 let initialState = {
 	currentInfo: {
@@ -11,26 +12,23 @@ let initialState = {
 		currentWindSpeed: '',
 		currentClouds: ''
 	},
-	tabChartsConfig: [
-		{
+	tabChartsConfig: {
+		Wind: {
 			tabName: 'Wind',
 			chartConfig: {
 				title: {
 					text: 'Wind'
 				},
+				yAxis: {
+					title: {text: 'm/s'}
+				},
 				xAxis: {
 					categories: []
 				},
-				series: [
-					{
-						type: 'column',
-						data: [],
-						showInLegend: false
-					}
-				]
+				series: [],
 			}
 		},
-		{
+		Temperature: {
 			tabName: 'Temperature',
 			chartConfig: {
 				title: {
@@ -39,16 +37,13 @@ let initialState = {
 				xAxis: {
 					categories: []
 				},
-				series: [
-					{
-						type: 'column',
-						data: [],
-						showInLegend: false
-					}
-				]
+				yAxis: {
+					title: {text: 'deg'}
+				},
+				series: []
 			}
 		},
-		{
+		Pressure: {
 			tabName: 'Pressure',
 			chartConfig: {
 				title: {
@@ -57,16 +52,13 @@ let initialState = {
 				xAxis: {
 					categories: []
 				},
-				series: [
-					{
-						type: 'column',
-						data: [],
-						showInLegend: false
-					}
-				]
+				yAxis: {
+					title: {text: 'hPa'}
+				},
+				series: []
 			}
 		},
-		{
+		Humidity: {
 			tabName: 'Humidity',
 			chartConfig: {
 				title: {
@@ -75,22 +67,50 @@ let initialState = {
 				xAxis: {
 					categories: []
 				},
-				series: [
-					{
-						type: 'column',
-						data: [],
-						showInLegend: false
-					}
-				]
+				yAxis: {
+					title: {text: '%'}
+				},
+				series: []
 			}
 		}
-	]
+	}
 };
 
 export default function (state = initialState, action) {
 	
 	switch (action.type) {
 		case searchConstants.SEARCH_DONE:
+			
+			let newTabChartsConfig = {...state.tabChartsConfig};
+			
+			for (let tab in newTabChartsConfig) {
+				if (!newTabChartsConfig.hasOwnProperty(tab)) {
+					continue;
+				}
+				newTabChartsConfig[tab].chartConfig.series = [
+					{
+						type: 'column',
+						data: [],
+						showInLegend: false
+					}
+				];
+			}
+			
+			action.payload.list.forEach((dailyForecast) => {
+				
+				let forecastDate = new Date(dailyForecast.dt * 1000),
+					forecastDay = `${forecastDate.getDate()} ${(monthNames[forecastDate.getMonth()]).substr(0, 3).toLowerCase()}`;
+				
+				newTabChartsConfig.Wind.chartConfig.xAxis.categories.push(forecastDay);
+				newTabChartsConfig.Temperature.chartConfig.xAxis.categories.push(forecastDay);
+				newTabChartsConfig.Pressure.chartConfig.xAxis.categories.push(forecastDay);
+				newTabChartsConfig.Humidity.chartConfig.xAxis.categories.push(forecastDay);
+				
+				newTabChartsConfig.Wind.chartConfig.series[0].data.push(dailyForecast.speed);
+				newTabChartsConfig.Temperature.chartConfig.series[0].data.push(parseInt(dailyForecast.temp.max));
+				newTabChartsConfig.Pressure.chartConfig.series[0].data.push(parseInt(dailyForecast.pressure));
+				newTabChartsConfig.Humidity.chartConfig.series[0].data.push(dailyForecast.humidity);
+			});
 			
 			return {
 				...state,
@@ -103,7 +123,8 @@ export default function (state = initialState, action) {
 					currentHumidity: action.payload.list[0].humidity,
 					currentWindSpeed: action.payload.list[0].speed,
 					currentClouds: action.payload.list[0].clouds
-				}
+				},
+				tabChartsConfig: newTabChartsConfig
 			};
 	}
 	return state;

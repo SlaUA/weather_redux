@@ -2,34 +2,46 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as tabActions from '../actions/Tab';
 import {bindActionCreators} from 'redux';
+import Chart from './Chart';
+
+require('../../styles/Tabs.styl');
 
 class Tabs extends React.Component {
 	
 	render() {
 		
-		let tabHeaders = [], tabContents = [], {tabChartsConfig, activeTab} = this.props;
+		let tabHeaders = [],
+			tabContents = [],
+			index = 0,
+			{tabChartsConfig, activeTab} = this.props;
 		
 		if (!tabChartsConfig) {
 			return null;
 		}
 		
-		tabChartsConfig.forEach((tab, index) => {
+		for (let tab in tabChartsConfig) {
 			
+			if (!tabChartsConfig.hasOwnProperty(tab)) {
+				continue;
+			}
 			tabHeaders.push(
 				<span
 					onClick={this.props.changeActiveTab.bind(this, index)}
 					key={index}
 					className={`tabHeader ${activeTab === index ? 'active' : ''}`}>
-					{tab.tabName}
+					{tabChartsConfig[tab].tabName}
 					</span>
 			);
 			
 			tabContents.push(
-				<span ref={tab.tabName} key={index}
-				      className={`tabContent ${activeTab === index ? 'active' : ''}`}>
+				<span key={index} className={`tabContent ${activeTab === index ? 'active' : ''}`}>
+					<Chart tabChartsConfig={this.props.tabChartsConfig}
+					       tabName={tabChartsConfig[tab].tabName}
+					       chartConfig={tabChartsConfig[tab].chartConfig}/>
 					</span>
 			);
-		});
+			index++;
+		}
 		
 		return (
 			<div className="chartWrapper">
