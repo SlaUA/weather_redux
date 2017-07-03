@@ -1,6 +1,6 @@
 import React from 'react';
 import Highcharts from 'highcharts';
-require('../../styles/Tabs.styl');
+require('../../styles/Chart.styl');
 
 export default class Chart extends React.Component {
 	
