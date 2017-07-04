@@ -35,9 +35,12 @@ class Tabs extends React.Component {
 			
 			tabContents.push(
 				<span key={index} className={`tabContent ${activeTab === index ? 'active' : ''}`}>
-					<Chart tabChartsConfig={this.props.tabChartsConfig}
-					       tabName={tabChartsConfig[tab].tabName}
-					       chartConfig={tabChartsConfig[tab].chartConfig}/>
+					
+					<Chart
+						tabChartsConfig={this.props.tabChartsConfig}
+						tabName={tabChartsConfig[tab].tabName}
+						chartConfig={tabChartsConfig[tab].chartConfig}/>
+					
 					</span>
 			);
 			index++;

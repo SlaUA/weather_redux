@@ -1,9 +1,22 @@
 let path = require('path'),
-    config = require('./config'),
-    development = (process.env.NODE_ENV || config.environment) !== 'production',
     webpack = require('webpack'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin');
+    ExtractTextPlugin = require('extract-text-webpack-plugin'),
+    config = require('./config'),
+    development = ((config.environment || process.env.NODE_ENV) !== 'production'),
+    plugins = [
+	    new CopyWebpackPlugin([
+		    {
+			    from: path.join(__dirname, 'dev/index.html'),
+			    to: '../build'
+		    },
+		    {
+			    from: path.join(__dirname, 'dev/img/favicon.ico'),
+			    to: '../build'
+		    }
+	    ]),
+	    new ExtractTextPlugin('bundle.css')
+    ];
 
 module.exports = {
     entry: {
@@ -64,34 +77,12 @@ module.exports = {
             }
         ]
     },
-    plugins: development ? [
-        new CopyWebpackPlugin([
-            {
-                from: path.join(__dirname, 'dev/index.html'),
-                to: '../build'
-            },
-            {
-                from: path.join(__dirname, 'dev/img/favicon.ico'),
-                to: '../build'
-            }
-        ]),
-        new ExtractTextPlugin('bundle.css')
-    ] : [
-        new CopyWebpackPlugin([
-            {
-                from: path.join(__dirname, '/index.html'),
-                to: '../build'
-            },
-            {
-                from: path.join(__dirname, 'dev/img/favicon.ico'),
-                to: '../build'
-            }
-        ]),
-        new ExtractTextPlugin('bundle.css'),
+    plugins: development ? plugins : [
+        ...plugins,
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: 'production'
+                NODE_ENV: JSON.stringify('production')
             }
         }),
         new webpack.optimize.UglifyJsPlugin({

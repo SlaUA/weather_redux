@@ -1,14 +1,22 @@
 import {combineReducers, applyMiddleware, createStore} from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
 import {routerMiddleware, routerReducer} from 'react-router-redux';
 import {createLogger} from 'redux-logger';
 import searchReducer from '../reducers/Search';
 import homeReducer from '../reducers/Home';
 import tabsReducer from '../reducers/Tabs';
+import searchSaga from '../sagas/Search';
+import config from '../../../config';
 
 const history = createHistory();
-const middleware = routerMiddleware(history);
+const reduxRouterMiddleware = routerMiddleware(history);
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [
+	sagaMiddleware,
+	reduxRouterMiddleware
+];
+config.environment !== 'production' && middleware.push(createLogger());
 
 const store = createStore(
 	combineReducers({
@@ -17,8 +25,10 @@ const store = createStore(
 		tabsReducer,
 		routerReducer: routerReducer
 	}),
-	applyMiddleware(thunk, middleware, createLogger())
+	applyMiddleware(...middleware)
 );
+
+sagaMiddleware.run(searchSaga);
 
 export {
 	store,

@@ -22,21 +22,21 @@ class Search extends React.Component {
 	componentDidMount() {
 		
 		navigator.geolocation.getCurrentPosition(
-		    (Position) => this.props.actors.search({
-		        lat: Position.coords.latitude,
-		        lon: Position.coords.longitude
-		    })
+			(Position) => this.props.search({
+				lat: Position.coords.latitude,
+				lon: Position.coords.longitude
+			})
 		)
 	}
 	
 	captureSearchInput(event) {
 		
-		this.props.actors.changeSearchInput(event.target.value);
+		this.props.changeSearchInput(event.target.value);
 		
 		clearTimeout(this.timersConfig.inputTimeoutId);
 		
 		this.timersConfig.inputTimeoutId = setTimeout(
-			this.props.actors.search.bind(this, this.props.searchText),
+			this.props.search.bind(this, this.props.searchText),
 			this.timersConfig.inputDelayTimer
 		);
 	}
@@ -62,6 +62,9 @@ class Search extends React.Component {
 }
 
 const mapStateToProps = (state) => ({searchText: state.searchReducer.searchText});
-const mapDispatchToProps = (dispatch) => ({actors: bindActionCreators(searchActions, dispatch)});
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+	search: searchActions.search,
+	changeSearchInput: searchActions.changeSearchInput
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

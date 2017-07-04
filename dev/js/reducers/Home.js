@@ -12,6 +12,7 @@ let initialState = {
 		currentWindSpeed: '',
 		currentClouds: ''
 	},
+	// each tab config for Highcharts
 	tabChartsConfig: {
 		Wind: {
 			tabName: 'Wind',
@@ -79,10 +80,13 @@ let initialState = {
 export default function (state = initialState, action) {
 	
 	switch (action.type) {
+		
+		// successful search
 		case searchConstants.SEARCH_DONE:
 			
 			let newTabChartsConfig = {...state.tabChartsConfig};
 			
+			// add config for a new each chart
 			for (let tab in newTabChartsConfig) {
 				if (!newTabChartsConfig.hasOwnProperty(tab)) {
 					continue;
@@ -96,6 +100,7 @@ export default function (state = initialState, action) {
 				];
 			}
 			
+			// fill forecast data
 			action.payload.list.forEach((dailyForecast) => {
 				
 				let forecastDate = new Date(dailyForecast.dt * 1000),

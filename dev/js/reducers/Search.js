@@ -7,6 +7,7 @@ let initialState = {
 export default function (state = initialState, action) {
 	
 	switch (action.type) {
+		// change search input text
 		case searchConstants.SEARCH_INPUT_CHANGE:
 			
 			return {

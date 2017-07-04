@@ -8,6 +8,7 @@ export default class Chart extends React.Component {
 		
 		super(props);
 		
+		// will be merged for each chart
 		this.uniChartConfig = {
 			title: {
 				text: 'Default name'
