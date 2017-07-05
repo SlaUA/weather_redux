@@ -1,5 +1,5 @@
-# weather_redux
-weather app
+# weather app
+
 used stack:
  - webpack + babel
  - react/redux/redux-saga
