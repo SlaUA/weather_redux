@@ -3,9 +3,12 @@ import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
 import {routerMiddleware, routerReducer} from 'react-router-redux';
 import {createLogger} from 'redux-logger';
+
 import searchReducer from '../reducers/Search';
-import homeReducer from '../reducers/Home';
+import weatherReducer from '../reducers/Weather';
 import tabsReducer from '../reducers/Tabs';
+import dragNDropReducer from '../reducers/DragNDrop';
+
 import searchSaga from '../sagas/Search';
 import config from '../../../config';
 
@@ -20,9 +23,10 @@ config.environment !== 'production' && middleware.push(createLogger());
 
 const store = createStore(
 	combineReducers({
-		homeReducer,
+		weatherReducer,
 		searchReducer,
 		tabsReducer,
+		dragNDropReducer,
 		routerReducer: routerReducer
 	}),
 	applyMiddleware(...middleware)
