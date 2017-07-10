@@ -1,4 +1,4 @@
 module.exports = {
-	environment: 'production', // dev or production
+	environment: 'dev', // dev or production
 	port: 3000
 };

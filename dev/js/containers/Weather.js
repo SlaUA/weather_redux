@@ -6,7 +6,7 @@ import Tabs from '../components/Tabs';
 
 require('../../styles/index.styl');
 
-class Home extends React.Component {
+class Weather extends React.Component {
 	
 	render() {
 		
@@ -21,8 +21,8 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	currentInfo: state.homeReducer.currentInfo,
-	tabChartsConfig: state.homeReducer.tabChartsConfig
+	currentInfo: state.weatherReducer.currentInfo,
+	tabChartsConfig: state.weatherReducer.tabChartsConfig
 });
 
-export default connect(mapStateToProps, null)(Home);
+export default connect(mapStateToProps, null)(Weather);
