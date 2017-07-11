@@ -15,9 +15,9 @@ class DragNDrop extends React.Component {
 
                 return containsDraggable ?
 
-                    <DragTarget key={index}>
+                    <DragTarget currentIndex={index} key={index}>
                         <DragSource key={containsDraggable.key}/>
-                    </DragTarget> : <DragTarget key={index}/>;
+                    </DragTarget> : <DragTarget currentIndex={index} key={index}/>;
             });
 
         return (
