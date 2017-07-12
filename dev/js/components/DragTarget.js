@@ -8,28 +8,19 @@ export default class DragTarget extends React.Component {
         super(props);
     }
 
-    onDragEnter(e) {
-        console.info(`dragEnter on index: ${this.props.currentIndex}`);
-    }
-
-    onDragEnd(e) {
-        console.info(`dragEnd on index: ${this.props.currentIndex}`);
+    // allow drop or not
+    onDragOver(e) {
+        e.preventDefault();
     }
 
     onDrop(e) {
         console.info(`drop on index: ${this.props.currentIndex}`);
     }
 
-    onDragStart(e) {
-        console.info(`drag start on index: ${this.props.currentIndex}`);
-    }
-
     render() {
 
         return <div onDrop={this.onDrop.bind(this)}
-                    onDragEnd={this.onDragEnd.bind(this)}
-                    onDragEnter={this.onDragEnter.bind(this)}
-                    onDragStart={this.onDragStart.bind(this)}
+                    onDragOver={this.onDragOver.bind(this)}
                     className="dragTarget">
             {this.props.children}
         </div>
