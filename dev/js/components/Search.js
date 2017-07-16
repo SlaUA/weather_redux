@@ -25,8 +25,11 @@ class Search extends React.Component {
 			(Position) => this.props.search({
 				lat: Position.coords.latitude,
 				lon: Position.coords.longitude
+			}), null, {
+				enableHighAccuracy: true,
+				timeout: 5000,
+				maximumAge: 0
 			})
-		)
 	}
 	
 	captureSearchInput(event) {
