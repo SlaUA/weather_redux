@@ -1,0 +1,25 @@
+.topMenuLinksWrapper
+  .topMenu
+    background-color: #333;
+    .menuSpread
+      float: left;
+      width: 100px;
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
+      .menuItem
+        color: white;
+        text-decoration: none;
+        height: 100%;
+        display: block;
+        transition: background-color 0.25s linear 0s;
+        &.active
+          background-color: #4CAF50;
+          display: block;
+          height: 100%;
+        &:hover:not(.active)
+          background-color: #555;
+    &:after
+      content: '';
+      display: table;
+      clear: both;

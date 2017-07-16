@@ -3,6 +3,7 @@ let path = require('path'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
     ExtractTextPlugin = require('extract-text-webpack-plugin'),
     config = require('./config'),
+	poststylus = require('poststylus'),
     development = ((config.environment || process.env.NODE_ENV) !== 'production'),
     plugins = [
 	    new CopyWebpackPlugin([
@@ -15,7 +16,14 @@ let path = require('path'),
 			    to: '../build'
 		    }
 	    ]),
-	    new ExtractTextPlugin('bundle.css')
+	    new ExtractTextPlugin('bundle.css'),
+	    new webpack.LoaderOptionsPlugin({
+		    options: {
+			    stylus: {
+				    use: [poststylus([ 'autoprefixer', 'rucksack-css' ])]
+			    }
+		    }
+	    })
     ];
 
 module.exports = {
@@ -55,8 +63,8 @@ module.exports = {
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
-                        'css-loader',
-                        'autoprefixer-loader',
+                        'style-loader',
+                        'css-loader'
                     ]
                 })
             },

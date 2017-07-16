@@ -14,7 +14,7 @@ let initialState = {
 			id: 1499977382088,
 			draggable: {
 				id: 1499977382196,
-				text: 'Drag me'
+				text: 'Some text'
 			}
 		},
 		{
@@ -41,7 +41,19 @@ let initialState = {
 			draggable: null
 		},
 		{
-			id: 1499977382794,
+			id: 1499977382795,
+			draggable: null
+		},
+		{
+			id: 1499977382796,
+			draggable: null
+		},
+		{
+			id: 1499977382797,
+			draggable: null
+		},
+		{
+			id: 1499977382798,
 			draggable: null
 		}
 	]

@@ -28,7 +28,7 @@
     "redux-saga": "^0.15.4"
   },
   "devDependencies": {
-    "autoprefixer-loader": "^3.2.0",
+    "autoprefixer": "^7.1.2",
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.0",
@@ -42,8 +42,10 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "jest": "^20.0.4",
+    "poststylus": "^0.2.3",
     "react-test-renderer": "^15.6.1",
     "regenerator-runtime": "^0.10.5",
+    "rucksack-css": "^0.9.1",
     "style-loader": "^0.18.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
