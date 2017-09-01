@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = require('../config').port;
+const compression = require('compression');
+
+app.use(compression());
 
 // share source folder
 app.use(express.static(path.join(__dirname, '../build')));
