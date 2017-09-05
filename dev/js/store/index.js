@@ -1,4 +1,4 @@
-import {combineReducers, applyMiddleware, createStore} from 'redux';
+import {combineReducers, applyMiddleware, createStore, compose} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
 import {routerMiddleware, routerReducer} from 'react-router-redux';
@@ -19,17 +19,23 @@ const middleware = [
 	sagaMiddleware,
 	reduxRouterMiddleware
 ];
+const rootReducer = combineReducers({
+    weatherReducer,
+    searchReducer,
+    tabsReducer,
+    dragNDropReducer,
+    routerReducer: routerReducer
+});
+const enhancer = compose(
+    applyMiddleware(...middleware),
+);
+
 config.environment !== 'production' && middleware.push(createLogger());
 
 const store = createStore(
-	combineReducers({
-		weatherReducer,
-		searchReducer,
-		tabsReducer,
-		dragNDropReducer,
-		routerReducer: routerReducer
-	}),
-	applyMiddleware(...middleware)
+    rootReducer,
+	{},
+    enhancer
 );
 
 sagaMiddleware.run(searchSaga);
